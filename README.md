@@ -16,7 +16,7 @@
 ### Association
 
 - has_many :items
-- has_many :buyers
+- has_many :buy_histories
 
 ## items テーブル
 
@@ -35,23 +35,33 @@
 ### Association
 
 - belongs_to :user
-- has_one :buyer
+- has_one :buy_histories
 
-## Buyers テーブル
+## buy_histories テーブル
 
-| Column        | Type       | Options     |
-| ------------- | ---------- | ----------- |
-| token         | string     | null: false |
-| postal_code   | string     | null: false |
-| prefecture    | string     | null: false |
-| city          | string     | null: false |
-| addresses     | string     | null: false |
-| building      | string     | null: false |
-| phone number  | string     | null: false |
-| item          | references |             |
-| user          | references |             |
+| Column           | Type       | Options     |
+| ---------------- | ---------- | ----------- |
+| item             | references |             |
+| user             | references |             |
 
 ### Association
 
+- has_one :addresses
 - belongs_to :user
 - belongs_to :item
+
+## addresses テーブル
+
+| Column             | Type       | Options     |
+| ------------------ | ---------- | ----------- |
+| postal_code        | string     | null: false |
+| prefecture_id      | integer    | null: false |
+| city               | string     | null: false |
+| block_number       | string     | null: false |
+| building           | string     |             |
+| phone_number       | string     | null: false |
+| buy_histories      | references |             |
+
+### Association
+
+- belongs_to :buy_histories
