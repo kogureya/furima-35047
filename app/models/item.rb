@@ -9,7 +9,7 @@ class Item < ApplicationRecord
 
   validates :image, :name, :info, :price, presence: true 
   
-  validates :price, format: { with: /\A[0-9]+\z/, message: "Half-width number"}
+  validates :price, format: {with: /0-9/, message: "Half-width number"}
   validates_inclusion_of :price, in:300..9999999, message: "Out of setting range"
 
   with_options numericality: { other_than: 1, message: "select" } do
