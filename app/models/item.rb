@@ -5,11 +5,14 @@ class Item < ApplicationRecord
   belongs_to :sales_status
   belongs_to :scheduled_delivery
   belongs_to :shipping_fee_status
+  has_one_attached :image
 
-  validates :image, :name, :info, presence: true
-  validates :price, presence: true, format: {with: /^[0-9]+$/}, inclusion: {in:300..9999999}
+  validates :image, :name, :info, :price, presence: true 
+  
+  validates :price, format: { with: /\A[0-9]+\z/, message: "Half-width number"}
+  validates_inclusion_of :price, in:300..9999999, message: "Out of setting range"
 
-  with_options numericality: { other_than: 1 } do
+  with_options numericality: { other_than: 1, message: "select" } do
     validates :category_id
     validates :prefecture_id
     validates :sales_status_id
