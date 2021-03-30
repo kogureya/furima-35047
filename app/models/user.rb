@@ -18,4 +18,6 @@ class User < ApplicationRecord
 
   validates :encrypted_password, :password,
             format: { with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]/, message: 'Include both letters and numbers' }
+
+  has_many :item
 end
