@@ -14,7 +14,7 @@ class Item < ApplicationRecord
   validates :price_before_type_cast, format: { with: /\A[0-9]+\z/, message: 'Half-width number' }
   validates_inclusion_of :price, in: 300..9_999_999, message: 'Out of setting range'
 
-    with_options numericality: { other_than: 1, message: 'select' } do
+  with_options numericality: { other_than: 1, message: 'select' } do
     validates :category_id
     validates :prefecture_id
     validates :sales_status_id

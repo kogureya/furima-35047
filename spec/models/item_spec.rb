@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Item, type: :model do
   before do
     @item = FactoryBot.build(:item)
-    @item.image = fixture_file_upload("/images/1testA.png")
+    @item.image = fixture_file_upload('/images/1testA.png')
   end
 
   describe '商品出品機能' do
@@ -37,49 +37,48 @@ RSpec.describe Item, type: :model do
       it 'priceが300未満では登録できない' do
         @item.price = 200
         @item.valid?
-        expect(@item.errors.full_messages).to include "Price Out of setting range"
+        expect(@item.errors.full_messages).to include 'Price Out of setting range'
       end
       it 'priceが10000000以上では登録できない' do
-        @item.price = 10000000
+        @item.price = 10_000_000
         @item.valid?
-        expect(@item.errors.full_messages).to include "Price Out of setting range"
+        expect(@item.errors.full_messages).to include 'Price Out of setting range'
       end
       it 'priceが英字では登録できない' do
         @item.price = 'abc'
         @item.valid?
-        expect(@item.errors.full_messages).to include "Price before type cast Half-width number"
+        expect(@item.errors.full_messages).to include 'Price before type cast Half-width number'
       end
       it 'priceが全角数字では登録できない' do
         @item.price = '５００'
         @item.valid?
-        expect(@item.errors.full_messages).to include "Price before type cast Half-width number"
+        expect(@item.errors.full_messages).to include 'Price before type cast Half-width number'
       end
       it 'category_idが--では登録できない' do
         @item.category_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include "Category select"
+        expect(@item.errors.full_messages).to include 'Category select'
       end
       it 'sales_status_idが--では登録できない' do
         @item.sales_status_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include "Sales status select"
+        expect(@item.errors.full_messages).to include 'Sales status select'
       end
       it 'shipping_fee_status_idが--では登録できない' do
         @item.shipping_fee_status_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include "Shipping fee status select"
+        expect(@item.errors.full_messages).to include 'Shipping fee status select'
       end
       it 'prefecture_idが---では登録できない' do
         @item.prefecture_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include "Prefecture select"
+        expect(@item.errors.full_messages).to include 'Prefecture select'
       end
       it 'scheduled_delivery_idが--では登録できない' do
         @item.scheduled_delivery_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include "Scheduled delivery select"
+        expect(@item.errors.full_messages).to include 'Scheduled delivery select'
       end
     end
-
   end
 end
