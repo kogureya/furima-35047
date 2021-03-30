@@ -55,27 +55,27 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include 'Price before type cast Half-width number'
       end
       it 'category_idが--では登録できない' do
-        @item.category_id = '1'
+        @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Category select'
       end
       it 'sales_status_idが--では登録できない' do
-        @item.sales_status_id = '1'
+        @item.sales_status_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Sales status select'
       end
       it 'shipping_fee_status_idが--では登録できない' do
-        @item.shipping_fee_status_id = '1'
+        @item.shipping_fee_status_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Shipping fee status select'
       end
       it 'prefecture_idが---では登録できない' do
-        @item.prefecture_id = '1'
+        @item.prefecture_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Prefecture select'
       end
       it 'scheduled_delivery_idが--では登録できない' do
-        @item.scheduled_delivery_id = '1'
+        @item.scheduled_delivery_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Scheduled delivery select'
       end
