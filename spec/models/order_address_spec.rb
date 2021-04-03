@@ -2,7 +2,12 @@ require 'rails_helper'
 
 RSpec.describe OrderAddress, type: :model do
   before do
-    @order_address = FactoryBot.build(:order_address)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.build(:item)
+    item.image = fixture_file_upload('/images/1testA.png')
+    item.save
+    @order_address = FactoryBot.build(:order_address, user_id: user.id, item_id: item.id)
+    sleep 0.1
   end
 
   describe '商品購入機能' do
@@ -32,6 +37,11 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include 'Prefecture select'
       end
+      it '都道府県が(---)では登録できない' do
+        @order_address.prefecture = 1
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include 'Prefecture select'
+      end
       it '市区町村が空では登録できない' do
         @order_address.city = ''
         @order_address.valid?
@@ -47,6 +57,11 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include "Phone number can't be blank"
       end
+      it '電話番号が英数混合では登録できない' do
+        @order_address.phone_number = 'abcd1234567'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include 'Phone number Input only number'
+      end
       it '電話番号が11桁以上では登録できない' do
         @order_address.phone_number = '123456789012'
         @order_address.valid?
@@ -56,6 +71,16 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.token = ''
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include "Token can't be blank"
+      end
+      it 'user_idがなければ登録できない' do
+        @order_address.user_id = nil
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include "User can't be blank"
+      end
+      it 'item_idがなければ登録できない' do
+        @order_address.item_id = nil
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include "Item can't be blank"
       end
     end
   end

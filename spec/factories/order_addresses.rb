@@ -6,8 +6,6 @@ FactoryBot.define do
     building { '高崎駅' }
     phone_number { 12_345_678_901 }
     prefecture { 11 }
-    user_id { 20 }
-    item_id { 25 }
     token { 'pk_test_000000000000000000000000' }
   end
 end
