@@ -21,4 +21,5 @@ class User < ApplicationRecord
             format: { with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]/, message: 'Include both letters and numbers' }
 
   has_many :items
+  has_many :orders
 end
