@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :destroy]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-  before_action :not_signed_in, only: [:edit, :update]
+  before_action :soldout_or_id_mismatch, only: [:edit, :update]
 
   def index
     @items = Item.all.order('created_at DESC')
@@ -24,7 +24,6 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    redirect_to root_path if @item.order.present?
   end
 
   def update
@@ -55,7 +54,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  def not_signed_in
-    redirect_to root_path unless @item.user_id == current_user.id
+  def soldout_or_id_mismatch
+    redirect_to root_path if @item.order.present? || @item.user_id != current_user.id
   end
 end
